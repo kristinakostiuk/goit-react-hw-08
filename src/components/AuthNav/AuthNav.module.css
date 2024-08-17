@@ -2,3 +2,12 @@
     display: flex;
     gap: 15px;
 }
+.navLink {
+    text-decoration: none;
+    color: #007bff;
+    font-weight: bold;
+}
+
+.navLink:hover {
+    text-decoration: underline;
+}
