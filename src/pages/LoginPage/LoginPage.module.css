@@ -1,0 +1,10 @@
+.loginPage,
+.registrationPage {
+    padding: 20px;
+}
+
+.loginPage h1,
+.registrationPage h1 {
+    font-size: 2em;
+    margin-bottom: 20px;
+}
