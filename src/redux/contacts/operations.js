@@ -1,15 +1,25 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
-const apiUrl = 'https://66b4de679f9169621ea4aaa7.mockapi.io/contacts';
+const apiUrl = 'https://connections-api.goit.global/contacts';
+
+
+const setAuthHeader = token => {
+  axios.defaults.headers.common.Authorization = `Bearer ${token}`;
+};
 
 export const fetchContacts = createAsyncThunk(
   'contacts/fetchAll',
   async (_, thunkAPI) => {
+    const state = thunkAPI.getState();
+    const token = state.auth.token; 
+    if (token) {
+      setAuthHeader(token);
+    }
+    
     try {
       const response = await axios.get(apiUrl);
-      const data = Array.isArray(response.data) ? response.data : [];
-      return data;
+      return response.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
     }
@@ -19,6 +29,12 @@ export const fetchContacts = createAsyncThunk(
 export const addContact = createAsyncThunk(
   'contacts/addContact',
   async (newContact, thunkAPI) => {
+    const state = thunkAPI.getState();
+    const token = state.auth.token;
+    if (token) {
+      setAuthHeader(token);
+    }
+    
     try {
       const response = await axios.post(apiUrl, newContact);
       return response.data;
@@ -31,6 +47,12 @@ export const addContact = createAsyncThunk(
 export const deleteContact = createAsyncThunk(
   'contacts/deleteContact',
   async (contactId, thunkAPI) => {
+    const state = thunkAPI.getState();
+    const token = state.auth.token;
+    if (token) {
+      setAuthHeader(token);
+    }
+    
     try {
       await axios.delete(`${apiUrl}/${contactId}`);
       return contactId;
@@ -43,6 +65,12 @@ export const deleteContact = createAsyncThunk(
 export const updateContact = createAsyncThunk(
   'contacts/updateContact',
   async ({ id, updatedData }, thunkAPI) => {
+    const state = thunkAPI.getState();
+    const token = state.auth.token;
+    if (token) {
+      setAuthHeader(token);
+    }
+    
     try {
       const response = await axios.patch(`${apiUrl}/${id}`, updatedData);
       return response.data;

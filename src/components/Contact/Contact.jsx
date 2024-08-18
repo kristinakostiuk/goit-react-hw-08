@@ -29,7 +29,6 @@ export default function Contact({ data: { id, name, number } }) {
         <p className={css.number}>📞 {number}</p>
       </div>
       <div className={css.buttonContainer}>
-        {' '}
         <button
           onClick={() => setIsEditModalOpen(true)}
           className={css.buttonEdit}
@@ -57,7 +56,10 @@ export default function Contact({ data: { id, name, number } }) {
         onClose={() => setIsEditModalOpen(false)}
         title="Edit Contact"
       >
-        <EditContactForm contact={{ id, name, number }} />
+        <EditContactForm
+          contact={{ id, name, number }}
+          setIsEditModalOpen={setIsEditModalOpen}
+        />
       </Modal>
     </div>
   );

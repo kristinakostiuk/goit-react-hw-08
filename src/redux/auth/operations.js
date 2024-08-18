@@ -53,7 +53,7 @@ export const updateContact = createAsyncThunk(
   'contacts/updateContact',
   async ({ id, updatedData }, thunkAPI) => {
     try {
-      const response = await axios.patch(`/contacts/${id}`, updatedData); // Заміни apiUrl на правильний URL
+      const response = await axios.patch(`/contacts/${id}`, updatedData); 
       return response.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response ? error.response.data.message : error.message);

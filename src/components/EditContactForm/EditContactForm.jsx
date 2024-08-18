@@ -17,7 +17,7 @@ const EditContactSchema = Yup.object().shape({
     .required('Required'),
 });
 
-export default function EditContactForm({ contact }) {
+export default function EditContactForm({ contact, setIsEditModalOpen }) {
   const dispatch = useDispatch();
 
   const handleSubmit = (values, actions) => {
@@ -25,6 +25,7 @@ export default function EditContactForm({ contact }) {
       .unwrap()
       .then(() => {
         toast.success('Contact updated successfully!');
+        setIsEditModalOpen(false);
       })
       .catch(() => {
         toast.error('Failed to update contact.');
